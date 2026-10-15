@@ -225,7 +225,7 @@ export default function ompMail(pi: ExtensionAPI) {
 		name: "mail_list",
 		label: "Mail: list sessions",
 		description:
-			"List the omp sessions on this machine you can message: name, address, whether each is running, idle or working, and its directory. A session that is not running still receives mail; it waits for it.",
+			"List the omp sessions on this machine you can message: name, address, whether each is running, idle or working, and its directory. A session that is not running still receives mail when it resumes. An omp session started before omp-mail was installed is not listed and cannot receive mail until it restarts.",
 		parameters: Type.Object({}),
 		approval: "read",
 		async execute() {

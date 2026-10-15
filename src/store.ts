@@ -312,13 +312,26 @@ export async function send(root: string, from: Letter["from"], targets: string[]
 		}
 		const presence = presenceOf(record);
 		if (presence === "live" && (await awaitConsumed(path))) return { to: label, result: "delivered", detail: "It is in their context now." };
-		const why = presence === "live" ? "not read yet" : presence === "stalled" ? "the session is not responding" : "the session is not running";
+		if (presence === "offline")
+			return {
+				to: label,
+				result: "queued",
+				detail: `that session closed ${since(record.beatAt)} ago. It gets the mail only if that exact session is resumed. An omp session started before omp-mail was installed is not listed and cannot receive mail until it restarts.`,
+			};
+		const why = presence === "live" ? "not read yet" : "the session is not responding";
 		return { to: label, result: "queued", detail: `${why}; it is delivered when the session reads its inbox.` };
 	});
 	return Promise.all(outcomes);
 }
 
 export const formatOutcomes = (outcomes: Outcome[]) => outcomes.map((o) => `${o.to}: ${o.result} — ${o.detail}`).join("\n");
+
+export function since(at: number, now = Date.now()): string {
+	const m = Math.max(0, Math.round((now - at) / 60_000));
+	if (m < 60) return `${m}m`;
+	if (m < 48 * 60) return `${Math.round(m / 60)}h`;
+	return `${Math.round(m / 1440)}d`;
+}
 
 export type Wait = { kind: "answer"; letter: Letter } | { kind: "died" | "timeout" | "aborted" };
 

@@ -104,7 +104,9 @@ The mail directory is `0700`. Any process that runs as you can write to it, as w
 
 There is no daemon and no socket. A sender writes a temporary file and renames it into the inbox, so a reader never sees half a letter. The receiver watches its inbox (with a 2 s poll as backup). It puts each letter in context, then deletes the file. The delete is the receipt: `delivered` means the file disappeared within 1.5 s.
 
-Presence is a pid and a heartbeat every 10 s. `running` means the pid exists and the heartbeat is recent. `not responding` means the pid exists but the heartbeat is old. `not running` means the session closed or died.
+Presence is a pid and a heartbeat every 10 s. `running` means the pid exists and the heartbeat is recent. `not responding` means the pid exists but the heartbeat is old. `not running` means the session closed or died; the listing shows how long ago.
+
+A session only exists to omp-mail while omp-mail is loaded in it. An omp process started before you installed omp-mail is not listed and cannot receive mail until it restarts. Mail sent by directory to such a process goes to the last closed session in that directory instead, and waits for that session to resume.
 
 A clean shutdown marks the session offline and keeps its inbox. A sweep deletes an offline session only after its inbox has been empty for 7 days, or 30 days if mail is still waiting.
 
