@@ -3,19 +3,33 @@
 	"version": "0.1.0",
 	"type": "module",
 	"description": "Messaging between omp sessions on one machine: offline mail, delivery receipts, and blocking ask/reply that works on omp",
-	"keywords": ["omp-extension", "omp-plugin", "oh-my-pi", "messaging", "agents"],
+	"keywords": [
+		"omp-extension",
+		"omp-plugin",
+		"oh-my-pi",
+		"messaging",
+		"agents"
+	],
 	"license": "MIT",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/paymog/omp-mail.git"
 	},
 	"omp": {
-		"extensions": ["./extensions/omp-mail.ts"]
+		"extensions": [
+			"./extensions/omp-mail.ts"
+		]
 	},
 	"bin": {
-		"omp-mail": "./bin/omp-mail.ts"
+		"omp-mail": "bin/omp-mail.ts"
 	},
-	"files": ["extensions", "src", "bin", "README.md", "LICENSE"],
+	"files": [
+		"extensions",
+		"src",
+		"bin",
+		"README.md",
+		"LICENSE"
+	],
 	"scripts": {
 		"test": "bun test",
 		"typecheck": "tsc --noEmit",
