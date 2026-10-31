@@ -1,5 +1,7 @@
 # omp-mail
 
+[![omp status](https://omppackages.com/badge/omp-mail.svg)](https://omppackages.com/packages/omp-mail)
+
 Messaging between [omp](https://github.com/can1357/oh-my-pi) sessions on one machine.
 
 - **Send** plain text to up to 8 sessions. A running session gets it between tool calls. An idle session wakes up.
